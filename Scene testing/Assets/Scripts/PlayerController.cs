@@ -31,7 +31,7 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(moveInput.x * speed, rb.velocity.y);
+        rb.velocity = new Vector2(moveInput.x * speed, moveInput.y * speed);
     }
     public void OnMove(InputAction.CallbackContext context)
     {
