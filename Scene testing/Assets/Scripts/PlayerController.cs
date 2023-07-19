@@ -5,25 +5,25 @@ using UnityEngine.InputSystem;
 
 public class PlayerController : MonoBehaviour
 {
-    public float speed = 5f;
+    public float speed;
+    public float jumpforce;
+    public bool isJumping;
     Vector2 moveInput;
 
-    public bool IsMoving { get; private set; }
-
-    Rigidbody2D rb;
+    private Rigidbody2D rb;
 
     private void Awake()
     {
-        rb = GetComponent<Rigidbody2D>();
+        rb = gameObject.GetComponent<Rigidbody2D>();
     }
 
-    // Start is called before the first frame update
     void Start()
     {
-        
+        speed = 5f;
+        jumpforce = 60f;
+        isJumping = false;
     }
 
-    // Update is called once per frame
     void Update()
     {
         
@@ -31,12 +31,10 @@ public class PlayerController : MonoBehaviour
 
     private void FixedUpdate()
     {
-        rb.velocity = new Vector2(moveInput.x * speed, moveInput.y * speed);
+        rb.velocity = new Vector2(moveInput.x * speed, 0f);
     }
     public void OnMove(InputAction.CallbackContext context)
     {
         moveInput = context.ReadValue<Vector2>();
-
-        IsMoving = moveInput != Vector2.zero;
     }
 }
