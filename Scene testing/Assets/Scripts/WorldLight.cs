@@ -1,6 +1,7 @@
 using System;
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 using UnityEngine.Rendering.Universal;
 
@@ -11,6 +12,7 @@ namespace WorldTime
     {
         private Light2D _light;
         private float number;
+        private float number2;
 
         [SerializeField]
         private WorldTime _worldTime;
@@ -20,11 +22,31 @@ namespace WorldTime
             _light = GetComponent<Light2D>();
             _worldTime.WorldTimeChanged += OnWorldTimeChanged;
             number = 1;
+            number2 = 1.2f;
         }
 
         private void OnWorldTimeChanged(object sender, TimeSpan newTime)
         {
-            _light.intensity = (PercentOfDay(newTime));
+            if (PercentOfDay(newTime) < 0.125) 
+            {
+                _light.intensity = 1.1f * (PercentOfDay(newTime));
+            }
+            else if (PercentOfDay(newTime) < 0.25)
+            {
+                _light.intensity = number2 * (PercentOfDay(newTime));
+            }
+            else if (PercentOfDay(newTime) < 0.35)
+            {
+                _light.intensity = 1.3f * (PercentOfDay(newTime));
+            }
+            else if (PercentOfDay(newTime) < 0.45)
+            {
+                _light.intensity = 1.4f * (PercentOfDay(newTime));
+            }
+            else
+            {
+                _light.intensity = 1.5f * (PercentOfDay(newTime));
+            }
         }
 
         private void OnDestroy()
