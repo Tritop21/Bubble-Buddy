@@ -34,11 +34,11 @@ namespace WorldTime
 
         private float PercentOfDay(TimeSpan timeSpan)
         {
-            if (timeSpan.TotalMinutes < 721)
+            if ((float)timeSpan.TotalMinutes % WorldTimeConstant.MinutesInDay / WorldTimeConstant.MinutesInDay < 0.51)
             {
                 return (float)timeSpan.TotalMinutes % WorldTimeConstant.MinutesInDay / WorldTimeConstant.MinutesInDay;
             }
-            else if (timeSpan.TotalMinutes > 720)
+            else if ((float)timeSpan.TotalMinutes % WorldTimeConstant.MinutesInDay / WorldTimeConstant.MinutesInDay > 0.50)
             {
                 return number - ((float)timeSpan.TotalMinutes % WorldTimeConstant.MinutesInDay / WorldTimeConstant.MinutesInDay);
             }
